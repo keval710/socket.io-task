@@ -3,7 +3,7 @@ import { userModel } from "../model/user";
 import jwt from "jsonwebtoken";
 import Joi from 'joi';
 
-const deletenews = (io: any) => {
+const deleteNews = (io: any) => {
     io.on('connection', (socket: any) => {
         socket.on('deletenews-client', async (data: any) => {
             try {
@@ -51,4 +51,4 @@ const deletenews = (io: any) => {
     });
 };
 
-export { deletenews };
+export { deleteNews };

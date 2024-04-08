@@ -1,21 +1,21 @@
-import { commentModel } from "../model/comment";
+import { newsModel } from "../model/news";
 import { userModel } from "../model/user";
 import jwt from "jsonwebtoken";
 import Joi from 'joi';
 
-const getcomment = (io: any) => {
+const getNews = (io: any) => {
     io.on('connection', (socket: any) => {
-        socket.on('getcomment-client', async (data: any) => {
+        socket.on('getnews-client', async (data: any) => {
             try {
 
-                const schema = Joi.object({
+                const newsSchema = Joi.object({
                     token: Joi.string().required().messages({
                         'any.required': 'User Must Need To be Signin',
                         'string.empty': 'Token cannot be empty'
                     })
                 })
 
-                const validation = schema.validate(data);
+                const validation = newsSchema.validate(data);
 
                 if (validation.error) {
                     const errorMessage = validation.error.details[0].message;
@@ -30,8 +30,8 @@ const getcomment = (io: any) => {
                 if (userData) {
                     const user = await userModel.findById(userData._id)
                     if (user) {
-                        const comments = await commentModel.find()
-                        io.emit("comments", comments);
+                        const news = await newsModel.find()
+                        io.emit("news", news);
                     }
                 }
                 else {
@@ -45,4 +45,4 @@ const getcomment = (io: any) => {
     });
 };
 
-export { getcomment };
+export { getNews };

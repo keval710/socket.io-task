@@ -7,13 +7,13 @@ import cookieParser from 'cookie-parser';
 import * as dotenv from "dotenv";
 
 import { signup } from "./socketEvents/signup";
-import { signin } from "./socketEvents/signin";
-import { addnews } from "./socketEvents/addnews";
-import { getnews } from "./socketEvents/getnews";
-import { editnews } from "./socketEvents/editnews";
-import { deletenews } from "./socketEvents/deletenews";
-import { addcomment } from "./socketEvents/addcomments";
-import { getcomment } from "./socketEvents/getcomments";
+import { signIn } from "./socketEvents/signIn";
+import { addNews } from "./socketEvents/addNews";
+import { getNews } from "./socketEvents/getNews";
+import { editNews } from "./socketEvents/editNews";
+import { deleteNews } from "./socketEvents/deleteNews";
+import { addComment } from "./socketEvents/addComments";
+import { getComment } from "./socketEvents/getComments";
 
 const app: Express = express();
 
@@ -37,13 +37,13 @@ const io = new Server(server, {
 });
 
 signup(io)
-signin(io)
-getnews(io)
-addnews(io)
-editnews(io)
-deletenews(io)
-addcomment(io)
-getcomment(io)
+signIn(io)
+getNews(io)
+addNews(io)
+editNews(io)
+deleteNews(io)
+addComment(io)
+getComment(io)
 
 const PORT = process.env.PORT || 8000;
 

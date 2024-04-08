@@ -2,7 +2,7 @@ import { commentModel } from "../model/comment";
 import jwt from "jsonwebtoken";
 import Joi from 'joi';
 
-const addcomment = (io: any) => {
+const addComment = (io: any) => {
     io.on('connection', (socket: any) => {
         socket.on('addcomment-client', async (data: any) => {
             try {
@@ -58,4 +58,4 @@ const addcomment = (io: any) => {
     });
 };
 
-export { addcomment };
+export { addComment };

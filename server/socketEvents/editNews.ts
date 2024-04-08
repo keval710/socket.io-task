@@ -3,7 +3,7 @@ import { userModel } from "../model/user";
 import jwt from "jsonwebtoken";
 import Joi from 'joi';
 
-const editnews = (io: any) => {
+const editNews = (io: any) => {
     io.on('connection', (socket: any) => {
 
         socket.on('edit1news-client', async (data: any) => {
@@ -103,4 +103,4 @@ const editnews = (io: any) => {
     });
 };
 
-export { editnews };
+export { editNews };
