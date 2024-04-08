@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="sendBtn">Signup</button>
+
+    <button id="sendBtn1">Signin</button>
+
+    <button id="sendBtn2">Get News</button>
+
+    <button id="sendBtn3">Add News</button>
+
+    <button id="sendBtn4">Edit News</button>
+
+    <button id="sendBtn5">Edit Particular News</button>
+
+    <button id="sendBtn6">Delete News</button>
+
+    <button id="sendBtn7">Add Comment</button>
+
+    <button id="sendBtn8">Get Comment</button>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+
+    <script>
+        const socket = io();
+        const sendBtn = document.getElementById("sendBtn");
+        const sendBtn1 = document.getElementById("sendBtn1");
+        const sendBtn2 = document.getElementById("sendBtn2");
+        const sendBtn3 = document.getElementById("sendBtn3");
+        const sendBtn4 = document.getElementById("sendBtn4");
+        const sendBtn5 = document.getElementById("sendBtn5");
+        const sendBtn6 = document.getElementById("sendBtn6");
+        const sendBtn7 = document.getElementById("sendBtn7");
+        const sendBtn8 = document.getElementById("sendBtn8");
+
+        socket.on("signup-server", (data) => {
+            console.log(data);
+        });
+
+        socket.on("signin-server", (data) => {
+            console.log(data);
+        });
+
+        socket.on("error", (data) => {
+            console.log(data);
+        });
+
+        socket.on("jwt-token", (data) => {
+            console.log(data);
+        });
+
+        let signup_data = {
+            "name": "Yagnang Vyas",
+            "email": "yaganang@gmail.com",
+            "password": "Yagnang@123",
+            "cpassword": "Yagnang@123"
+        }
+
+        let signin_data = {
+            "email": "yaganang@gmail.com",
+            "password": "Yagnang@123"
+        }
+
+        let get_news = {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBlN2NkZDBhMzJlYTNjYWE2NjgzNjgiLCJpYXQiOjE3MTIyMjU1MTQsImV4cCI6MTcxMjIyOTExNH0.U_X-1buylqO4UyU4yUmbPjndvpUG6MJ2qPEJpHe-T2k"
+        }
+
+        let add_news = {
+            "title": "News Title",
+            "subtitle": "News Subtitle",
+            "description": "News Description",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBlN2NkZDBhMzJlYTNjYWE2NjgzNjgiLCJpYXQiOjE3MTIyMjU1MTQsImV4cCI6MTcxMjIyOTExNH0.U_X-1buylqO4UyU4yUmbPjndvpUG6MJ2qPEJpHe-T2k"
+        }
+
+        let edit_news = {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBlN2NkZDBhMzJlYTNjYWE2NjgzNjgiLCJpYXQiOjE3MTIyMjU1MTQsImV4cCI6MTcxMjIyOTExNH0.U_X-1buylqO4UyU4yUmbPjndvpUG6MJ2qPEJpHe-T2k"
+        }
+
+        let edit_particular_news = {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBlN2NkZDBhMzJlYTNjYWE2NjgzNjgiLCJpYXQiOjE3MTIyMzE3MjAsImV4cCI6MTcxMjIzNTMyMH0.DAsbSAvitKoqrm5M30P0ZUcbNdfodyEI2UJMwHT6qrE",
+            "id": "660e7d360a32ea3caa66836e",
+            "title": "News Updated",
+            "subtitle": "Updated Subtitle",
+            "description": "Updated Description"
+        }
+
+        let delete_news = {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBlN2NkZDBhMzJlYTNjYWE2NjgzNjgiLCJpYXQiOjE3MTIyMzE3MjAsImV4cCI6MTcxMjIzNTMyMH0.DAsbSAvitKoqrm5M30P0ZUcbNdfodyEI2UJMwHT6qrE",
+            "id": "660e7d360a32ea3caa66836e"
+        }
+
+        let add_comments = {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBlN2NkZDBhMzJlYTNjYWE2NjgzNjgiLCJpYXQiOjE3MTIyMzYzNzIsImV4cCI6MTcxMjIzOTk3Mn0.v3tF8Bsqh8h789Ibk63BZlxmkOVjzMQKlpWcULkuJz8",
+            "user_id": "660e7cdd0a32ea3caa668368",
+            "news_id": "660e7d380a32ea3caa668371",
+            "comment": "hello world"
+        }
+
+        let get_comments = {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjBlN2NkZDBhMzJlYTNjYWE2NjgzNjgiLCJpYXQiOjE3MTIyMzYzNzIsImV4cCI6MTcxMjIzOTk3Mn0.v3tF8Bsqh8h789Ibk63BZlxmkOVjzMQKlpWcULkuJz8"
+        }
+
+        sendBtn.addEventListener("click", (e) => {
+            socket.emit("signup-client", signup_data)
+        })
+
+        sendBtn1.addEventListener("click", (e) => {
+            socket.emit("signin-client", signin_data)
+        })
+
+        sendBtn2.addEventListener("click", (e) => {
+            socket.emit("getnews-client", get_news)
+        })
+
+        sendBtn3.addEventListener("click", (e) => {
+            socket.emit("addnews-client", add_news)
+        })
+
+        sendBtn4.addEventListener("click", (e) => {
+            socket.emit("editnews-client", edit_news)
+        })
+
+        sendBtn5.addEventListener("click", (e) => {
+            socket.emit("edit1news-client", edit_particular_news)
+        })
+
+        sendBtn6.addEventListener("click", (e) => {
+            socket.emit("deletenews-client", delete_news)
+        })
+
+        sendBtn7.addEventListener("click", (e) => {
+            socket.emit("addcomment-client", add_comments)
+        })
+
+        sendBtn8.addEventListener("click", (e) => {
+            socket.emit("getcomment-client", get_comments)
+        })
+
+    </script>
+</body>
+
+</html>
