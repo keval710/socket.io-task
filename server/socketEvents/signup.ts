@@ -1,10 +1,12 @@
 import { userModel } from "../model/user";
 import { hashPassword } from "../helper/authHelper";
 import Joi from 'joi';
+import { Server } from "socket.io";
+import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
-const signup = (io: any) => {
-    io.on('connection', (socket: any) => {
-        socket.on('signup-client', async (data: any) => {
+const signup = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>) => {
+    io.on('connection', (socket) => {
+        socket.on('signup-client', async (data: { name: string; email: string; password: string; }) => {
             try {
                 const schema = Joi.object({
                     name: Joi.string().required().messages({

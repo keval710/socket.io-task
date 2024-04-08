@@ -3,7 +3,7 @@ import { comparePassword } from "../helper/authHelper";
 import jwt from "jsonwebtoken";
 import Joi from 'joi';
 
-const signin = (io: any) => {
+const signIn = (io: any) => {
     io.on('connection', (socket: any) => {
         socket.on('signin-client', async (data: any) => {
             try {
@@ -58,4 +58,4 @@ const signin = (io: any) => {
     });
 };
 
-export { signin };
+export { signIn };
