@@ -1,84 +1,53 @@
 
+interface Props {
+    isOpen: boolean,
+    setIsOpen: (val: boolean) => void
+}
 
-const AddNewsForm = () => {
+const AddNewsForm: React.FC<Props> = ({ setIsOpen, isOpen }) => {
     return (
-        <div>
-            <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
-                <h1 className="text-xl font-bold text-white capitalize dark:text-white">Account settings</h1>
-                <form>
-                    <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="username">Username</label>
-                            <input id="username" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" />
-                        </div>
-                        htmlF                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="emailAddress">Email Address</label>
-                            <input id="emailAddress" type="email" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" />
-                        </div>
-
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="password">Password</label>
-                            <input id="password" type="password" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" />
-                        </div>
-
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="passwordConfirmation">Password Confirmation</label>
-                            <input id="passwordConfirmation" type="password" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" />
-                        </div>
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="passwordConfirmation">Color</label>
-                            <input id="color" type="color" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" />
-                        </div>
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="passwordConfirmation">Select</label>
-                            <select className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
-                                <option>Surabaya</option>
-                                <option>Jakarta</option>
-                                <option>Tangerang</option>
-                                <option>Bandung</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="passwordConfirmation">Range</label>
-                            <input id="range" type="range" className="block w-full py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" />
-                        </div>
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="passwordConfirmation">Date</label>
-                            <input id="date" type="date" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" />
-                        </div>
-                        <div>
-                            <label className="text-white dark:text-gray-200" htmlFor="passwordConfirmation">Text Area</label>
-                            <textarea id="textarea" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-white">
-                                Image
-                            </label>
-                            <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                <div className="space-y-1 text-center">
-                                    <svg className="mx-auto h-12 w-12 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    <div className="flex text-sm text-gray-600">
-                                        <label htmlFor="file-upload" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                            <span className="">Upload a file</span>
-                                            <input id="file-upload" name="file-upload" type="file" className="sr-only" />
-                                        </label>
-                                        <p className="pl-1 text-white">or drag and drop</p>
-                                    </div>
-                                    <p className="text-xs text-white">
-                                        PNG, JPG, GIF up to 10MB
-                                    </p>
-                                </div>
+        <div className="flex items-center justify-center overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50  w-full md:inset-0 h-screen max-h-full bg-gray-900 bg-opacity-60 overflow-hidden">
+            <div className="relative p-4 w-full max-w-lg max-h-screen">
+                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t ">
+                        <h3 className="text-lg font-semibold text-gray-900">
+                            Create New News
+                        </h3>
+                        <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-toggle="crud-modal"
+                            onClick={() => setIsOpen(!isOpen)}>
+                            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span className="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <form className="p-4 md:p-5">
+                        <div className="grid gap-4 mb-4 grid-cols-2">
+                            <div className="col-span-2">
+                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 ">News Title</label>
+                                <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Type news title" />
+                            </div>
+                            <div className="col-span-2">
+                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 ">News Subtitle</label>
+                                <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Type news subtitle" />
+                            </div>
+                            <div className="col-span-2">
+                                <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 ">News Description</label>
+                                <textarea id="description" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Write news description here"></textarea>
+                            </div>
+                            <div className="col-span-2">
+                                <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 ">Upload Image</label>
+                                <input className="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 " aria-describedby="file_input_help" id="file_input" type="file" />
+                                <p className="mt-1 text-sm text-gray-500 " id="file_input_help"> PNG, JPG Allowed .</p>
                             </div>
                         </div>
-                    </div>
-
-                    <div className="flex justify-end mt-6">
-                        <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-pink-500 rounded-md hover:bg-pink-700 focus:outline-none focus:bg-gray-600">Save</button>
-                    </div>
-                </form>
-            </section>
+                        <button type="submit" className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                            Add new product
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
