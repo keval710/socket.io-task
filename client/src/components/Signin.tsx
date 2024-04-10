@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import loginSVG from '../assets/login.svg';
 import { Link } from "react-router-dom";
 
@@ -7,17 +7,20 @@ type FormData = {
     password: string
 }
 
-
 const Signin = () => {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormData>()
+        trigger // Access the trigger function
+    } = useForm<FormData>({
+        mode: "onChange" // Enable validateOnChange mode
+    });
 
     const onSubmit = handleSubmit((data) => {
         console.log(data)
-    })
+    });
+
     return (
         <>
             {/* <!-- component -->/ */}
@@ -38,6 +41,9 @@ const Signin = () => {
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                                 <input type="text" id="email" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                                     {...register("email", {
+                                        onBlur: () => {
+                                            trigger("email");
+                                        },
                                         required: "Email is required",
                                         pattern: {
                                             value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -45,7 +51,8 @@ const Signin = () => {
                                         }
                                     })}
                                 />
-                                <p className="error-message">{errors.email?.message}</p>
+                                {errors.email && <p className="error-message">{errors.email?.message}</p>}
+
                             </div>
                             <div>
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
@@ -60,8 +67,13 @@ const Signin = () => {
                                             value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
                                             message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
                                         }
-                                    })
-                                    }
+                                    })}
+                                    onBlur={() => {
+                                        trigger("password");
+                                        // if (!errors.password) {
+                                        //     errors.password = null; // Reset error message
+                                        // }
+                                    }}
                                 />
                                 <p className="error-message">{errors.password?.message}</p>
                             </div>
@@ -70,8 +82,7 @@ const Signin = () => {
                             </div>
                         </form>
                         <div className="mt-4 text-sm text-gray-600 text-center">
-                            <p>Dont have an account? <Link to="/signup" className="text-black hover:underline">Register here</Link>
-                            </p>
+                            <p>Dont have an account? <Link to="/signup" className="text-black hover:underline">Register here</Link></p>
                         </div>
                     </div>
                 </div>
@@ -80,4 +91,4 @@ const Signin = () => {
     )
 }
 
-export default Signin
+export default Signin;
