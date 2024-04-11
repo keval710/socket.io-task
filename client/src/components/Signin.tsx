@@ -1,30 +1,65 @@
 import { useForm } from "react-hook-form";
 import loginSVG from '../assets/login.svg';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import { useEffect, useState } from "react";
 
 type FormData = {
     email: string
     password: string
 }
 
-const Signin = () => {
+const Signin = ({ socket }: any) => {
+
+    const errorToast = (data: any) => toast.error(data);
+
+    const [socketEvent, setSocketEvent] = useState(false)
+
+    const navigate = useNavigate()
+
+
     const {
         register,
         handleSubmit,
         formState: { errors },
-        trigger // Access the trigger function
+        trigger,
+        reset
     } = useForm<FormData>({
-        mode: "onChange" // Enable validateOnChange mode
+        mode: "onChange"
     });
 
+    useEffect(() => {
+        const handleSigninServer = (data: any) => {
+            reset()
+            localStorage.setItem('token', data.token);
+            navigate("/home")
+        }
+
+        const handleError = (data: any) => {
+            errorToast(data)
+        }
+
+        socket.on("signin-server", handleSigninServer);
+        socket.on("error", handleError);
+
+        return () => {
+            socket.off("signup-server", handleSigninServer);
+            socket.off("error", handleError);
+        }
+    }, [socketEvent])
+
     const onSubmit = handleSubmit((data) => {
-        console.log(data)
+        const emit = socket.emit("signin-client", data)
+        if (emit) {
+            setSocketEvent(true)
+        }
     });
 
     return (
         <>
             {/* <!-- component -->/ */}
             <div className="flex h-screen">
+                <ToastContainer />
                 {/* <!-- Left Pane --> */}
                 <div className="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
                     <div className="max-w-md text-center">
@@ -58,6 +93,9 @@ const Signin = () => {
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                                 <input type="password" id="password" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300"
                                     {...register("password", {
+                                        onBlur: () => {
+                                            trigger("password");
+                                        },
                                         required: "Password is required",
                                         minLength: {
                                             value: 8,
@@ -68,12 +106,6 @@ const Signin = () => {
                                             message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
                                         }
                                     })}
-                                    onBlur={() => {
-                                        trigger("password");
-                                        // if (!errors.password) {
-                                        //     errors.password = null; // Reset error message
-                                        // }
-                                    }}
                                 />
                                 <p className="error-message">{errors.password?.message}</p>
                             </div>

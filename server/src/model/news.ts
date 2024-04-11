@@ -15,6 +15,9 @@ const newsSchema = new mongoose.Schema({
     },
     author_name: {
         type: String
+    },
+    image: {
+        type: String
     }
 })
 

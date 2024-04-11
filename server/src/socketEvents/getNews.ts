@@ -7,7 +7,6 @@ const getNews = (io: any) => {
     io.on('connection', (socket: any) => {
         socket.on('getnews-client', async (data: any) => {
             try {
-
                 const newsSchema = Joi.object({
                     token: Joi.string().required().messages({
                         'any.required': 'User Must Need To be Signin',

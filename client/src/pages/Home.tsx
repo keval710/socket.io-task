@@ -1,10 +1,10 @@
 import ShowNews from '../components/ShowNews';
 
 
-const Home = () => {
+const Home = ({ socket }: any) => {
     return (
         <>
-            <ShowNews />
+            <ShowNews socket={socket} />
         </>
     )
 }
