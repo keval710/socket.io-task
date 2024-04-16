@@ -2,8 +2,6 @@ import { useAppDispatch } from "../redux/hooks"
 import { openAddNewsModel } from "../redux/features/newsSlice"
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from "react-router-dom";
 
 type FormData = {
     token: string | null;
@@ -16,10 +14,8 @@ type FormData = {
 const AddNewsForm: React.FC = ({ socket, successToast }: any) => {
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
-    // const isOpen = useAppSelector((state: any) => state.news.value);
     const dispatch = useAppDispatch();
 
-    const errorToast = (data: any) => toast.error(data);
 
     const [socketEvent, setSocketEvent] = useState(false)
 
@@ -43,12 +39,12 @@ const AddNewsForm: React.FC = ({ socket, successToast }: any) => {
         const handleAddNewsServer = () => {
             reset()
             dispatch(openAddNewsModel())
-            // setNewsAdded(true)
             successToast()
         }
 
         const handleError = (data: any) => {
-            errorToast(data)
+            console.log(data);
+
         }
 
         socket.on("addnews-server", handleAddNewsServer);
@@ -63,6 +59,8 @@ const AddNewsForm: React.FC = ({ socket, successToast }: any) => {
 
     const onSubmit = handleSubmit((data) => {
         const emit = socket.emit("addnews-client", data)
+        console.log(data);
+
         if (emit) {
             setSocketEvent(true)
         }
@@ -145,7 +143,7 @@ const AddNewsForm: React.FC = ({ socket, successToast }: any) => {
                                                 if (!allowedFormats.includes(file.type)) {
                                                     return 'Only JPG and PNG formats are allowed';
                                                 }
-                                                return true; // Validation passed
+                                                return true;
                                             }
                                         })}
                                     />

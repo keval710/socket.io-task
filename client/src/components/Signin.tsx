@@ -3,6 +3,8 @@ import loginSVG from '../assets/login.svg';
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { useEffect, useState } from "react";
+import { useAppSelector } from '../redux/hooks'
+// import { protectedRouteModel } from '../redux/features/protectedRouteSlice'
 
 type FormData = {
     email: string
@@ -10,6 +12,10 @@ type FormData = {
 }
 
 const Signin = ({ socket }: any) => {
+
+    const protectedRoute = useAppSelector((state: any) => state.protectedRoutes.value);
+    // console.log(protectedRoute);
+
 
     const errorToast = (data: any) => toast.error(data);
 
@@ -27,6 +33,14 @@ const Signin = ({ socket }: any) => {
     } = useForm<FormData>({
         mode: "onChange"
     });
+
+    useEffect(() => {
+
+        if (protectedRoute === false) {
+            errorToast("Session Expired , Login Again")
+        }
+
+    }, [protectedRoute])
 
     useEffect(() => {
         const handleSigninServer = (data: any) => {

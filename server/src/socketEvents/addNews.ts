@@ -43,7 +43,7 @@ const addNews = (io: any) => {
 
                 const SECRET_KEY: string = process.env.SECRET_KEY as string
 
-                const { title, subtitle, description, token, image } = data;
+                const { title, subTitle, description, token, image } = data;
 
                 const userData = jwt.verify(token, SECRET_KEY) as { _id: string }
 
@@ -52,15 +52,18 @@ const addNews = (io: any) => {
                     const user = await userModel.findOne({ _id: author_id }, { _id: 0, name: 1 })
                     const author_name = user?.name
 
-                    const imageFileName = `news_${Date.now()}.jpg`; 
+                    const imageFileName = `news_${Date.now()}.jpg`;
                     const uploadPath = path.join(__dirname, '../uploads/', imageFileName);
                     fs.writeFileSync(uploadPath, image[0]);
 
-                    const news = new newsModel({ title, subtitle, description, author_id, author_name, image: imageFileName })
+                    const news = new newsModel({ title, subTitle, description, author_id, author_name, image: imageFileName })
                     const save = await news.save()
 
                     if (save) {
                         io.emit('addnews-server', "News Added Successfully")
+
+                        const news = await newsModel.find()
+                        io.emit("news", news);
                     }
                 }
                 else {

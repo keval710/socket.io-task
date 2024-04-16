@@ -5,7 +5,7 @@ import About from './components/About'
 import Signup from './components/Signup'
 import Signin from './components/Signin'
 import Home from './pages/Home'
-import { ToastContainer } from 'react-toastify';
+import ProtectedRoutes from './util/ProtectedRoutes';
 
 function App() {
 
@@ -17,13 +17,15 @@ function App() {
 
   return (
     <>
-      
+
       <Routes>
         <Route path='/' element={<Signin socket={socket} />} />
 
-        <Route path='/home' element={<Home socket={socket} />} />
+        <Route element={<ProtectedRoutes socket={socket} />}>
+          <Route path='/home' element={<Home socket={socket} />} />
+        </Route>
+
         <Route path='/about' element={<About />} />
-        {/* <Route path='/signin' element={<Signin />} /> */}
         <Route path='/signup' element={<Signup socket={socket} />} />
       </Routes >
     </>

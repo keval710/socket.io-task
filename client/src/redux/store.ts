@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import newsSliceReducer from "./features/newsSlice"
+import protectedRoutesReducer from "./features/protectedRouteSlice"
 
 export const store = configureStore({
     reducer: {
-        news: newsSliceReducer
+        news: newsSliceReducer,
+        protectedRoutes: protectedRoutesReducer
     },
 })
 

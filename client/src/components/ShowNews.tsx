@@ -12,16 +12,19 @@ const ShowNews = ({ socket }: any) => {
 
     const successToast = () => {
         toast.success("News Added Successfully");
-        console.log("in tost");
     }
 
     useEffect(() => {
         socket.emit('getnews-client', { token: localStorage.getItem('token') })
     }, [])
 
+    // useEffect(() => {
     socket.on('news', (data: any) => {
-        setData(data)
-    })
+        setData(data);
+    });
+    // }, [socket]);
+
+
 
     useEffect(() => {
         if (isOpen) {
@@ -49,27 +52,15 @@ const ShowNews = ({ socket }: any) => {
                         </div>
                     </div>
                     {
-                        data?.map((val: any) => {
-                            return (
-                                // <div key={val._id}>
-                                <div className="flex flex-wrap -m-4">
-                                    <div className="xl:w-1/3 md:w-1/2 p-4">
-                                        <div className="bg-white p-6 rounded-lg">
-                                            <NewsCard val={val} />
-                                        </div>
-                                    </div>
-                                </div>
-                                // </div>
-                            )
-                        })
+                        <NewsCard data={data} />
                     }
+
                     {
                         isOpen && <AddNewsForm socket={socket} successToast={successToast} />
                     }
                 </div>
             </section>
         </>
-
     )
 }
 
